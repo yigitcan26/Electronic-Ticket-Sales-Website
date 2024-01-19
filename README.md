@@ -1,3 +1,7 @@
+![Ekran Görüntüsü (315)](https://github.com/yigitcan26/Electronic-Ticket-Sales-Website/assets/91136665/d8413104-7314-41bd-a3d9-7223688502bc)
+![Ekran Görüntüsü (316)](https://github.com/yigitcan26/Electronic-Ticket-Sales-Website/assets/91136665/81b509d3-41a4-4969-a3c4-9f981e704bcb)
+
+
 Project Description
 
 • The electronic ticket sale website project is a Node.js, Express.js, and MySQL
