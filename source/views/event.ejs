@@ -1,0 +1,488 @@
+<%- include ('./partials/header') %>
+
+    <section class="flat-title-page inner">
+        <div class="overlay"></div>
+        <div class="themesflat-container">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="tf-section tf-item-details style-2">
+        <div class="themesflat-container">
+            <div class="row">
+                <div class="col-xl-6 col-md-12">
+                    <div class="content-left">
+                        <div class="media">
+                            <% if (foundEvent.eventType==='Theatre' ) { %>
+                                <img src="/assets/images/box-item/theatre.jpg" alt="Image">
+                                <% } else if (foundEvent.eventType==='Opera' ) { %>
+                                    <img src="/assets/images/box-item/opera.jpg" alt="Image">
+                                    <% } else if (foundEvent.eventType==='Cinema' ) { %>
+                                        <img src="/assets/images/box-item/movie.jpg" alt="Image">
+                                        <% } else if (foundEvent.eventType==='Ballet' ) { %>
+                                            <img src="/assets/images/box-item/ballet.jpg" alt="Image">
+                                            <% } else { %>
+                                                <img src="/assets/images/box-item/images-item-details2.jpg" alt="Image">
+                                                <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="content-right">
+                        <div class="sc-item-details">
+                            <div class="meta-item">
+                                <div class="left">
+                                    <h2>
+                                        <%=foundEvent.eventName%>
+                                    </h2>
+                                </div>
+                                <div class="right">
+                                    <span class="viewed eye mg-r-8">225</span>
+                                    <span class="liked heart wishlist-button"><span
+                                            class="number-like">100</span></span>
+                                </div>
+                            </div>
+                            <div class="client-infor sc-card-product">
+                                <div class="meta-info">
+                                    <div class="author">
+                                        <div class="avatar">
+                                            <img src="/assets/images/icon/ticket.png" alt="">
+                                        </div>
+                                        <div class="info">
+                                            <span>Event</span>
+                                            <h6>
+                                                <%=foundEvent.eventType%>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="meta-info">
+                                    <div class="author">
+                                        <div class="avatar">
+                                            <img src="/assets/images/icon/map.png" alt="">
+                                        </div>
+                                        <div class="info">
+                                            <span>City</span>
+                                            <% for (const venue of foundVenue) { %>
+                                                <% if (venue.venueID===foundEvent.venueID) { %>
+                                                    <h6 style="text-transform: capitalize;">
+                                                        <%= venue.city %>
+                                                    </h6>
+                                                    <% } %>
+                                                        <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if (!foundEvent.eventDescription) { %>
+                                <p>Açıklama girmeyin sonra burada bir şey yazmasını bekleyin</p>
+                                <% } else { %>
+                                    <p>
+                                        <%= foundEvent.eventDescription %>
+                                    </p>
+                                    <% } %>
+                                        <div class="meta-item-details">
+                                            <div class="item-style-2 item-details">
+                                                <ul class="list-details">
+                                                    <li><span>Start Date </span>
+                                                        <h6 id="startDate"></h6>
+                                                    </li>
+                                                    <li><span>End Date </span>
+                                                        <h6 id="endDate"></h6>
+                                                    </li>
+                                                    <li><span>Event Duration </span>
+                                                        <h6 id="eventCountdown"></h6>
+                                                    </li>
+                                                    <li><span>Location </span>
+                                                        <% for (const venue of foundVenue) { %>
+                                                            <% if (venue.venueID===foundEvent.venueID) { %>
+                                                                <h6 style="text-transform: capitalize;">
+                                                                    <%= venue.address %>
+                                                                </h6>
+                                                                <% } %>
+                                                                    <% } %>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="item-style-2">
+                                                <div class="item meta-price">
+                                                    <span class="heading">Event Fee :</span>
+                                                    <div class="price">
+                                                        <div class="price-box">
+                                                            <h5>
+                                                                <%= foundEvent.cost %>₺
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="item count-down">
+                                                    <span>
+                                                        <div aria-hidden="true" class="countdown__timer"><span
+                                                                class="countdown__item"><span
+                                                                    class="countdown__value  js-countdown__value--0">00</span><span
+                                                                    class="countdown__label"
+                                                                    style="margin: 0 11.1px;">:</span></span><span
+                                                                class="countdown__item"><span
+                                                                    class="countdown__value  js-countdown__value--1">00</span><span
+                                                                    class="countdown__label"
+                                                                    style="margin: 0 11.1px;">:</span></span><span
+                                                                class="countdown__item"><span
+                                                                    class="countdown__value  js-countdown__value--2">00</span><span
+                                                                    class="countdown__label"
+                                                                    style="margin: 0 11.1px;">:</span></span><span
+                                                                class="countdown__item"><span
+                                                                    class="countdown__value  js-countdown__value--3">00</span><span
+                                                                    class="countdown__label"
+                                                                    style="margin: 0 11.1px;"></span></span></div>
+                                                    </span>
+                                                </div>
+                                                <script>
+                                                    var eventStartDate = new Date("<%= foundEvent.eventStartDate %>");
+
+                                                    function updateCountdown() {
+                                                        var now = new Date();
+                                                        var difference = eventStartDate - now;
+
+                                                        var days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                                                        var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                        var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                                                        var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                                                        document.querySelector('.js-countdown__value--0').innerText = padWithZero(days);
+                                                        document.querySelector('.js-countdown__value--1').innerText = padWithZero(hours);
+                                                        document.querySelector('.js-countdown__value--2').innerText = padWithZero(minutes);
+                                                        document.querySelector('.js-countdown__value--3').innerText = padWithZero(seconds);
+                                                    }
+
+                                                    function padWithZero(number) {
+                                                        return (number < 10 ? '0' : '') + number;
+                                                    }
+
+                                                    // counter
+                                                    updateCountdown();
+                                                    setInterval(updateCountdown, 1000);
+                                                </script>
+                                             
+                                                <script type="text/javascript">
+                                                    var eventStartDate = new Date('<%= foundEvent.eventStartDate %>');
+                                                    var eventEndDate = new Date('<%= foundEvent.eventEndDate %>');
+
+                                                    var timeDifference = eventEndDate - eventStartDate;
+
+                                                    var daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                                                    var hoursDifference = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                    var minutesDifference = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                                                    var secondsDifference = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                                                    var startDateOptions = { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                                                    var startDateString = eventStartDate.toLocaleDateString('en-US', startDateOptions);
+
+                                                    // "MMM DD HH:mm" 
+                                                    var endDateOptions = { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                                                    var endDateString = eventEndDate.toLocaleDateString('en-US', endDateOptions);
+
+                                                    var countdownElement = document.getElementById('eventCountdown');
+                                                    countdownElement.innerText = hoursDifference + ' hours ' + minutesDifference + ' minutes ';
+
+                                                    var startDateElement = document.getElementById('startDate');
+                                                    startDateElement.innerText = startDateString;
+
+                                                    var endDateElement = document.getElementById('endDate');
+                                                    endDateElement.innerText = endDateString;
+                                                </script>
+                                                
+                                            </div>
+                                        </div>
+                                        <div style="gap: 10px;" class="flex">
+                                            <script>
+                                                function showSeats()
+                                                {
+                                                    console.log("jdflkjflksjdflkjdslkfjdf");
+    
+                                                    document.getElementById("seating").style.display = 'block';
+        
+                                                }
+                                                </script>
+                                                <button id="mybutton12" type = "button" onclick="showSeats()"  >Buy
+                                                        ticket</button>
+                                            <a class="sc-button bag fl-button pri-3"><span>or</span></a>
+                                            <a id="mybutton13" class="sc-button bag fl-button pri-3"><span>Review
+                                                    transportation ticket</span></a>
+                                        </div>
+
+                                        <script>
+                                            document.getElementById("mybutton12").addEventListener("click", function() {
+                                                const gotogotoDiv = document.getElementById("gotogoto");
+                                        
+                                                if (gotogotoDiv) {
+                                                    gotogotoDiv.scrollIntoView({ behavior: "smooth" });
+                                                }
+                                            });
+
+                                            document.getElementById("mybutton13").addEventListener("click", function() {
+                                                const gotogotoDiv = document.getElementById("gotogoto");
+                                        
+                                                if (gotogotoDiv) {
+                                                    gotogotoDiv.scrollIntoView({ behavior: "smooth" });
+                                                }
+                                            });
+                                        </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script> 
+    var choosenSeats = [];
+    
+    function seatChoosen(row, column){
+        var button = document.getElementById(row + "_" + column);
+                                      //button.innerHTML = row + "," +column;
+                                      button.innerHTML = "  ";
+        var tickid = button.name;
+                                      choosenSeats.push({ row, column , tickid });
+        
+                                      event.preventDefault();
+        console.log(choosenSeats);
+    }
+
+    function addtocart()
+    {
+
+    }
+    </script>
+    <div id = "seating" style="display: none;"  >
+        <% for (const venue of foundVenue) { %>
+            <% if (venue.venueID===foundEvent.venueID) { %>
+               
+                <table border="1">
+                    <thead>
+                      <tr>
+                        <th>Select</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for (var i = 1; i <= venue.rowCount; i++) { %>
+                        <tr>
+                          <% for (var j = 1; j <= venue.columnCount; j++) { %>
+                            <td>
+                              <% for (var k = 0; k < foundSeats.length; k++) { %>
+                                <% if (foundSeats[k].rowNo == i && foundSeats[k].columnNo == j) { %>
+                                    <%for (var l = 0; l < tickets.length ; l++){%>
+                                        <%if (tickets[l].eventID == foundEvent.eventID && tickets[l].seatID == foundSeats[k].seatID && tickets[l].status == 0){%>
+                                  <form name="f1" action="#">
+                                    <button type="button" id="<%= i %>_<%= j %>" name="<%= tickets[l].ticketID %>" onclick="seatChoosen(<%=i %>,<%=j %>)">
+                                      <%= i %>, <%= j %>
+                                    </button>
+                                  </form>
+                                  <%}else if(tickets[l].eventID == foundEvent.eventID && tickets[l].seatID == foundSeats[k].seatID && tickets[l].status == 1){%>
+                                    <form name="f1" action="#">
+                                        <button style="background:#3630a3;color:white;" type="button" id="<%= i %>_<%= j %>" name="<%= i %>_<%= j %>">
+                                          <%= i %>, <%= j %>
+                                        </button>
+                                      </form>
+                                  <%}}%>
+                                <% } else { %>
+                                  <!-- Handle the case when there is no seat -->
+                                <% } %>
+                              <% } %>
+                            </td>
+                          <% } %>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                            
+
+               
+                <% } %>
+                    <% } %>
+                    <button type = "button" onclick="addtocart()"  >add to cart</button>
+        </div>
+        
+    <div class="tf-create-item tf-section">
+        <div class="themesflat-container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+                    <h4 id="gotogoto" class="title-create-item">Preview item</h4>
+                    <div class="sc-card-product">
+                        <div class="card-media">
+                            <a><img src="https://media.discordapp.net/attachments/840218845477470219/1190731664591159447/image.png" alt="Image"></a>
+                        </div>
+                       
+                        <div class="card-bottom">
+                            <a href="#" data-toggle="modal" data-target="#popup_bid"
+                                class="sc-button style bag fl-button pri-3"><span>Only Activity</span></a>
+                            <a href="#" data-toggle="modal" data-target="#popup_bid" class="view-history reload">All Buy</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-6 col-md-12 col-12">
+                    <div class="form-create-item">
+                        <div class="flat-tabs tab-create-item">
+                            <h4 class="title-create-item">Review Transportation Ticket</h4>
+                            <ul class="menu-tab tabs">
+                                <li class="tablinks active">1. Transportation</li>
+                            </ul>
+                            <div class="content-tab">
+                                <div class="content-inner active" style="">
+                                    <form action="#">
+                                        <h4 class="title-create-item">Select Vehicle Type</h4>
+                                        <select id="selectedVehicle" name="selectedVehicle" style="
+                                                              border: 1px solid rgba(138,138,160,0.3);
+                                                              outline: 0;
+                                                              -webkit-box-shadow: none;
+                                                              -moz-box-shadow: none;
+                                                              box-shadow: none;
+                                                              font-size: 18px;
+                                                              border-radius: 8px;
+                                                              padding: 13px 15px;
+                                                              margin-bottom: 20px;
+                                                              width: 100%;
+                                                              background: transparent;
+                                                              color: #8A8AA0;">
+                                            <option value="" disabled selected>Please select a vehicle type</option>
+                                            <option value="Bus">Bus</option>
+                                            <option value="Plane">Plane</option>
+                                            <option value="Train">Train</option>
+
+                                        </select>
+                                        <h4 class="title-create-item">Select Route</h4>
+                                        <select id="selectedRoute" name="selectedRoute" style="
+                                                                border: 1px solid rgba(138,138,160,0.3);
+                                                                outline: 0;
+                                                                -webkit-box-shadow: none;
+                                                                -moz-box-shadow: none;
+                                                                box-shadow: none;
+                                                                font-size: 18px;
+                                                                border-radius: 8px;
+                                                                padding: 13px 15px;
+                                                                margin-bottom: 20px;
+                                                                width: 100%;
+                                                                background: transparent;
+                                                                color: #8A8AA0;">
+                                                <option value="" disabled selected>Please select a route</option>
+                                            <% const routeInfo={}; routes.forEach(route=> {
+                                                const { routeID, stationOrder, place } = route;
+                                                if (!routeInfo[routeID]) {
+                                                routeInfo[routeID] = { minStationOrder: Infinity, maxStationOrder:
+                                                -Infinity, places: [] };
+                                                }
+                                                const info = routeInfo[routeID];
+                                                info.minStationOrder = Math.min(info.minStationOrder, stationOrder);
+                                                info.maxStationOrder = Math.max(info.maxStationOrder, stationOrder);
+                                                info.places.push(place);
+                                                });
+
+                                                const uniqueRoutesIDs2 = Array.from(new Set(routes.map(routesID =>
+                                                routesID.routeID)));
+                                                uniqueRoutesIDs2.forEach(uniqueRoutesID3 => {
+                                                const info = routeInfo[uniqueRoutesID3];
+                                                const firstPlace = info.places[0];
+                                                const lastPlace = info.places[info.places.length - 1];
+                                                %>
+                                                <option value="<%= uniqueRoutesID3 %>">
+                                                    <%= `${uniqueRoutesID3} - ${firstPlace} - ${lastPlace}` %>
+                                                </option>
+                                                <% }); %>
+
+                                        </select>
+                                        <h4 class="title-create-item">Select Vehicle</h4>
+                                        <select id="foundVehicle"  onchange="showVehseats()" name="foundVehicle" style="
+                                                                border: 1px solid rgba(138,138,160,0.3);
+                                                                outline: 0;
+                                                                -webkit-box-shadow: none;
+                                                                -moz-box-shadow: none;
+                                                                box-shadow: none;
+                                                                font-size: 18px;
+                                                                border-radius: 8px;
+                                                                padding: 13px 15px;
+                                                                margin-bottom: 20px;
+                                                                width: 100%;
+                                                                background: transparent;
+                                                                color: #8A8AA0;">
+                                                <option value="" disabled selected>Please select a vehicle</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <script>
+                                    const vehicles = <%- JSON.stringify(vehicles) %>;
+                                    const events = <%- JSON.stringify(events) %>;
+                                
+                                    const selectedVehicle = document.getElementById("selectedVehicle");
+                                    const selectedRoute = document.getElementById("selectedRoute");
+                                    const foundVehicle = document.getElementById("foundVehicle");
+                                
+                                    selectedVehicle.addEventListener("change", updateFoundVehicleOptions);
+                                    selectedRoute.addEventListener("change", updateFoundVehicleOptions);
+                                
+                                    function updateFoundVehicleOptions() {
+                                        const selectedVehicleType = selectedVehicle.value;
+                                        const selectedRouteID = selectedRoute.value;
+                                
+                                        foundVehicle.innerHTML = '<option value=""></option>';
+                                
+                                        vehicles.forEach((vehicle) => {
+                                            if (vehicle.routeID == selectedRouteID && vehicle.vehicleType == selectedVehicleType) {
+                                                const matchingEvent = events.find(event => event.vehicleID === vehicle.vehicleID);
+                                                
+                                                const option = document.createElement("option");
+                                                option.value = vehicle.vehicleID;
+                                                option.id = vehicle.rowCount + "," + vehicle.columnCount;
+                                                option.text = `Vehicle ID: ${vehicle.vehicleID}, Route ID: ${vehicle.routeID}, Type: ${vehicle.vehicleType}, Price: ${matchingEvent.cost}`;
+                                                foundVehicle.add(option);
+
+                                            }
+                                        });
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id = "vehicleSeating" style="display: none;"  >
+        </div>
+    <!-- Modal Popup Bid -->
+    <div class="modal fade popup" id="popup_bid_success" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body space-y-20 pd-40">
+                    <h3 class="text-center">You bought it successfully</h3>
+                    <p class="text-center">thank you!</p>
+                    <a href="/" class="btn btn-primary"> Go to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade popup" id="popup_bid" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body space-y-20 pd-40">
+                    <h3>Buy It</h3>
+                    <div class="hr"></div>
+                    <div class="d-flex justify-content-between">
+                        <p> Event Fee:</p>
+                        <p class="text-right price color-popup"> <%= foundEvent.cost %>₺ </p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p> transportation fee, if any, is also included</p>
+                    </div>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#popup_bid_success" data-dismiss="modal" aria-label="Close"> Buy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <%- include ('./partials/footer') %>
