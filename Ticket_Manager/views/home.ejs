@@ -1,0 +1,168 @@
+<%- include ('./partials/header') %>
+<!-- title page -->
+<section class="flat-title-page home5">
+    <img class="bg_h5" src="assets/images/backgroup-secsion/bg_section_h5.png" alt="">
+    <div class="overlay"></div>
+    <div class="swiper-container mainslider auctions">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <div class="themesflat-container">
+                        <div class="wrap-heading flat-slider">
+                            <div class="content">
+                                <h4 class="mg-bt-11"><span class="fill">ALL TICKET</span></h4>
+                                <h1 class="heading">Ticket to Anywhere!
+                                </h1>
+                                <p class="sub-heading mg-t-7 mg-bt-39">Where Journeys and Joys Unite
+                                </p>
+                            </div>
+                            <div class="flat-bt-slider style2 flex">
+                                <a href="/login"
+                                    class="sc-button header-slider style style-1 rocket fl-button pri-1"><span>Login
+                                    </span></a>
+                                <a href="/signup"
+                                    class="sc-button header-slider style style-1 note fl-button pri-1"><span>Signup
+                                    </span></a>
+                                <a href="/admin"
+                                    class="sc-button header-slider style style-1 note fl-button pri-1"><span>Admin
+                                    </span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item-->
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <div class="themesflat-container">
+                        <div class="wrap-heading flat-slider">
+                            <div class="content">
+                                <h4 class="mg-bt-11"><span class="fill">ALL TICKET</span></h4>
+                                <h1 class="heading">Ticket to Anywhere!
+                                </h1>
+                                <p class="sub-heading mg-t-7 mg-bt-39">Explore, Enjoy, Embark
+                                </p>
+                            </div>
+                            <div class="flat-bt-slider style2 flex">
+                                <a href="/login"
+                                    class="sc-button header-slider style style-1 rocket fl-button pri-1"><span>Login
+                                    </span></a>
+                                <a href="/signup"
+                                    class="sc-button header-slider style style-1 note fl-button pri-1"><span>Signup
+                                    </span></a>
+                                <a href="/admin"
+                                    class="sc-button header-slider style style-1 note fl-button pri-1"><span>Admin
+                                    </span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item-->
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-item">
+                    <div class="themesflat-container">
+                        <div class="wrap-heading flat-slider">
+                            <div class="content">
+                                <h4 class="mg-bt-11"><span class="fill">ALL TICKET</span></h4>
+                                <h1 class="heading">Ticket to Anywhere!
+                                </h1>
+                                <p class="sub-heading mg-t-7 mg-bt-39">Discover, find and buy!
+                                </p>
+                            </div>
+                            <div class="flat-bt-slider style2 flex">
+                                <a href="/login"
+                                    class="sc-button header-slider style style-1 rocket fl-button pri-1"><span>Login
+                                    </span></a>
+                                <a href="/signup"
+                                    class="sc-button header-slider style style-1 note fl-button pri-1"><span>Signup
+                                    </span></a>
+                                <a href="/admin"
+                                    class="sc-button header-slider style style-1 note fl-button pri-1"><span>Admin
+                                    </span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item-->
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="swiper-button-next btn-slide-next active"></div>
+    <div class="swiper-button-prev btn-slide-prev"></div>
+</section>
+
+<section class="tf-section live-auctions style3 home5 mobie-pb-70">
+    <div class="themesflat-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-live-auctions mg-bt-24">
+                    <h2 class="tf-title">
+                        Events
+                    </h2>
+                </div>
+            </div>
+            <% if (events) { %>
+            <% if (events.length != 0) { %>
+            <% events.reverse().forEach((event) => { %>
+            <% if (event.eventType !== 'Transportation') { %>
+            <div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                <div class="sc-card-product">
+                    <div class="card-media">
+                        <a href="/event/<%= event.eventID%>">
+                            <% if (event.eventType === 'Theatre') { %>
+                                <img  src="/assets/images/box-item/theater_saloon.jpg" alt="Image">
+                            <% } else if (event.eventType === 'Opera') { %>
+                                <img  src="/assets/images/box-item/opera_saloon.jpg" alt="Image">
+                            <% } else if (event.eventType === 'Cinema') { %>
+                                <img  src="/assets/images/box-item/cinema_saloon.jpg" alt="Image">
+                            <% } else if (event.eventType === 'Ballet') { %>
+                                <img  src="/assets/images/box-item/ballet_big.jpg" alt="Image">
+                            <% } else if (event.eventType === 'Transportation') { %>
+                                <img  src="/assets/images/box-item/bus_station.jpg" alt="Image">
+                            <% } else { %>
+                                <img src="/assets/images/box-item/card-item-4.jpg" alt="Image">
+                            <% } %>
+                        </a>
+                    </div>
+                    <div class="card-title">
+                        <h5 class="style2"><a href="/event/<%= event.eventID%>">"<%= event.eventName%>"</a></h5>
+                        <div style="white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;" class="tags"><%= event.eventType%></div>
+                    </div>
+                    <div class="meta-info">
+                        <div class="author">
+                            <div class="avatar">
+                                <img src="https://media.discordapp.net/attachments/840218845477470219/1190247462586302474/OC5wbmc.png" alt="Image">
+                            </div>
+                            <div class="info">
+                                <span>Venue</span>
+                                <% for (const venue of venues) { %>
+                                    <% if (venue.venueID === event.venueID) { %>
+                                        <h6><%= venue.city %></h6>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="price">
+                            <span>Price</span>
+                            <h5> <%= event.cost%>₺</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% }) %>
+            <div class="col-md-12 wrap-inner load-more text-center">
+                <a href="#" id="loadmore" class="sc-button loadmore fl-button pri-3"><span>Load More</span></a>
+            </div>
+            <% } else { %>
+            <div class="col-md-12 wrap-inner load-more text-center">
+                <a class="sc-button loadmore fl-button pri-3"><span>Oops, no activity :(</span></a>
+            </div>
+            <% }} %>
+        </div>
+    </div>
+</section>
+
+
+<%- include ('./partials/footer') %>

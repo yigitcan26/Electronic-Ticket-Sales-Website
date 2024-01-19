@@ -1,0 +1,846 @@
+<%- include ('./partials/header') %>
+  <!-- signup.ejs -->
+
+  <!-- title page -->
+  <section class="flat-title-page inner">
+    <div class="overlay"></div>
+    <div class="themesflat-container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-title-heading mg-bt-12">
+            <h1 class="heading text-center">Admin Page</h1>
+          </div>
+          <div class="breadcrumbs">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li>Admin</li>
+              <% if (typeof errorMessage !== 'undefined') { %>
+                <p class="text-center" style="color: red;"><%= errorMessage %></p>
+              <% } else if (typeof successMessage !== 'undefined') { %>
+                <p class="text-center" style="color: green;"><%= successMessage %></p>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tf-create-item tf-section">
+    <div class="themesflat-container">
+        <div class="row">
+             <div class="col-12">
+                 <div class="form-create-item">
+                    <div class="flat-tabs tab-create-item">
+                        <h4 class="title-create-item">Select method</h4>
+                        <ul class="menu-tab tabs" style="flex-wrap: wrap;">
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks active"><span class="icon-fl-tag"></span>Add Event</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-tag"></span>Delete Event</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-clock"></span>Add Route</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-icon-22"></span>Add to Route</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-icon"></span>Add Vehicle</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-credit-card"></span>Add Venue</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-users-filled"></span>Add Seat</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-users-filled"></span>Add Ticket</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-users-filled"></span>Add Vehicle to Route</li>
+                            <li style="flex: 0 0 calc(33.33% - 10px);" class="mt-10 tablinks"><span class="icon-fl-users-filled"></span>Delete Route</li>
+                        </ul>
+                        <div class="content-tab">
+                            <div class="content-inner" style="">
+                                    <form method="POST" action="/admin/addEvent">
+                                        <h4 class="title-create-item">Eventname</h4>
+                                        <input type="text" id="eventname" name="eventname" placeholder="Write event name" required>
+
+                                        <h4 class="title-create-item">EventType</h4>
+                                        <select id="eventtype" name="eventtype"
+                                                          style="
+                                                              border: 1px solid rgba(138,138,160,0.3);
+                                                              outline: 0;
+                                                              -webkit-box-shadow: none;
+                                                              -moz-box-shadow: none;
+                                                              box-shadow: none;
+                                                              font-size: 18px;
+                                                              border-radius: 8px;
+                                                              padding: 13px 15px;
+                                                              margin-bottom: 20px;
+                                                              width: 100%;
+                                                              background: transparent;
+                                                              color: #8A8AA0;">
+                                                        <option value="Transportation">Transportation</option>    
+                                                        <option value="Opera" selected>Opera</option>    
+                                                        <option value="Cinema">Cinema</option>  
+                                                        <option value="Theatre">Theatre</option>    
+                                                        <option value="Ballet">Ballet</option>          
+                                                      </select>
+
+                                        <div class="row-form style-3" style="justify-content:left; gap:40px;">
+                                            <div class="inner-row-form">
+                                                <h4 class="title-create-item">eventStartDate</h4>
+                                                <input type="datetime-local" id="eventStartDate" name="eventStartDate" required>
+                                            </div>
+                                            <div class="inner-row-form">
+                                                <h4 class="title-create-item">eventEndDate</h4>
+                                                <input type="datetime-local" id="eventEndDate" name="eventEndDate" required>
+                                            </div>
+                                            <div class="inner-row-form">
+                                              <h4 class="title-create-item">cost</h4>
+                                              <input type="number" id="cost" name="cost" required>
+                                          </div>
+                                        </div>
+                                        <h4 class="title-create-item mt-20">Event Description</h4>
+                                        <textarea type="text" id="eventDescription" name="eventDescription" placeholder="Write event description"></textarea>
+
+                                        <h4 class="title-create-item mt-20">venueID</h4>
+                                        <input type="number" id="venueID" name="venueID" placeholder="Enter venueID" required>
+
+                                        <h4 class="title-create-item mt-20">vehicleID</h4>
+                                        <input type="number" id="vehicleID" name="vehicleID" placeholder="Enter vehicleID">
+
+                                        <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Add Event</button>
+                                    </form>
+                            </div>
+                            <div class="content-inner" style="display: none;">
+                              <form method="POST" action="/admin/deleteEvent">
+                                  <h4 class="title-create-item">Eventname</h4>
+                                  <input type="text" id="eventname" name="eventname" placeholder="Write event name" required>
+                                  <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Delete Event</button>
+                              </form>
+                            </div>
+                            <div class="content-inner" style="display: none;">
+                              <form method="POST" action="/admin/addRoute">
+                                  <h4 class="title-create-item">Place</h4>
+                                  <input placeholder="City name" type="text" id="place" name="place" required>
+
+                                  <div class="row-form style-3" style="justify-content:left; gap:40px;">
+                                    <div class="inner-row-form">
+                                        <h4 class="title-create-item">Duration</h4>
+                                        <input placeholder="4 hours" type="number" id="duration" name="duration" required>
+                                    </div>
+                                    <div class="inner-row-form">
+                                       <h4 class="title-create-item">Break Duration</h4>
+                                       <input placeholder="15 minutes" type="number" id="breakDuration" name="breakDuration" required>
+                                    </div>
+                                  </div>
+                                  <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Add Route</button>
+                              </form>
+                      </div>
+                            <div class="content-inner" style="display: none;">
+                                    <form method="POST" action="/admin/addtoRoute">
+                                        <h4 class="title-create-item">Place</h4>
+                                        <input type="text" id="place" name="place" placeholder="City name" required>
+                                        <div class="row-form style-3">
+                                          <div class="inner-row-form">
+                                              <h4 class="title-create-item">Duration</h4>
+                                              <input type="number" placeholder="4 hours" id="duration" name="duration" required>
+                                          </div>
+                                          <div class="inner-row-form">
+                                              <h4 class="title-create-item">Break Duration</h4>
+                                              <input type="text" placeholder="15 minutes" id="breakDuration" name="breakDuration" required>
+                                          </div>
+                                          <div class="inner-row-form style-2">
+                                              <div class="seclect-box" style="padding-top: 0px;" >
+                                                  <h4 class="title-create-item">Select Route</h4>
+                                                  <div id="item-create" class="dropdown" style="z-index: auto;">
+                                                      <select id="routeID" name="routeID" 
+                                                          style="
+                                                              border: 1px solid rgba(138,138,160,0.3);
+                                                              outline: 0;
+                                                              -webkit-box-shadow: none;
+                                                              -moz-box-shadow: none;
+                                                              box-shadow: none;
+                                                              font-size: 18px;
+                                                              border-radius: 8px;
+                                                              padding: 13px 15px;
+                                                              width: 100%;
+                                                              background: transparent;
+                                                              color: #8A8AA0;">
+                                                        <% 
+                                                        const uniqueRouteIDs = Array.from(new Set(routes.map(routeID => routeID.routeID)));
+                                                        uniqueRouteIDs.forEach(uniqueRouteID => { 
+                                                      %>
+                                                        <option value="<%= uniqueRouteID %>"><%= uniqueRouteID %></option>
+                                                      <% }); %>                
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </div>
+                                        <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Add to Route</button>
+                                    </form>
+                            </div>
+                            <div class="content-inner" style="display: none;">
+                              <form method="POST" action="/admin/addVehicle">
+                                <div id="step1" class="form-step">
+                                  <h4 class="title-create-item">Vehicle Type</h4>
+                                        <select id="vehicleType" name="vehicleType" style="
+                                                              border: 1px solid rgba(138,138,160,0.3);
+                                                              outline: 0;
+                                                              -webkit-box-shadow: none;
+                                                              -moz-box-shadow: none;
+                                                              box-shadow: none;
+                                                              font-size: 18px;
+                                                              border-radius: 8px;
+                                                              padding: 13px 15px;
+                                                              margin-bottom: 20px;
+                                                              width: 100%;
+                                                              background: transparent;
+                                                              color: #8A8AA0;">
+                                            <option value="Bus" selected>Bus</option>
+                                            <option value="Plane">Plane</option>
+                                            <option value="Train">Train</option>
+
+                                        </select>
+                                
+                                        <h4 class="title-create-item">Row Count</h4>
+                                        <input type="number" id="vehRowCount" name="vehRowCount" min="1" required>
+                                        <h4 class="title-create-item">Column Count</h4>
+                                        <input type="number" id="vehColumnCount" name="vehColumnCount" min="1" required>
+                                        <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit" onclick ="vehicleNextStep()">Continue</button>
+                                     
+                                      </div>
+                                      <div id="Vseattable" class="form-step" style="display: none;">
+                                      </form>
+                                      <form  action="/admin">
+                                        <div id="vehicleTableContainer"></div>
+                                        
+                                     
+                                      </div>
+                                      <script>
+                                        var VehicleClickData = [];
+                                        function vehicleHandleClick(row,column) {
+                                             var button = document.getElementById("V" + row + "," + column);
+                                             var why = document.getElementById("Vseats");
+                                             //button.innerHTML = row + "," +column;
+                                             button.innerHTML = "  ";
+                                             VehicleClickData.push({ row, column });
+                                            
+                                             event.preventDefault();
+                                           }
+       
+       
+                                       function vehicleNextStep() {
+                                             
+                                         document.getElementById("Vseattable").style.display = 'block';
+                                         generateVTable()
+                                       }
+       
+                                       function generateVTable() {
+       
+                                               var rowCount = parseInt(document.getElementById('vehRowCount').value);
+                                                 var columnCount = parseInt(document.getElementById('vehColumnCount').value);
+       
+                                               var tableContainer = document.getElementById('vehicleTableContainer');
+                                               var m = '<table border="1"> ';
+                                                 m += '<thead> <tr> <th>Select </thead> <tbody>';
+                                               // tableContainer.innerHTML = '<table border="1">';
+                                               //   tableContainer.innerHTML += ' <thead> <tr> <th>Select </thead>';
+       
+                                                 for (var i = 1; i <= rowCount; i++) {
+                                                   m += '<tr>';
+                                                   for (var j = 1; j <= columnCount; j++) {
+                                                     m +=  '<td> <form name="f1" action="#" > ' +' <button type="button" id="V'+ i +',' + j + '" type="submit" name="V'+ i +',' + j + '"  onclick="vehicleHandleClick('+ i +','+ j + ')">' +  i + ',' + j + '</button> </form>'  + '</td>';
+                                                   } 
+                                                   m += '</tr>';
+                                                 }
+                                                 m += '<tbody></table>';
+       
+                                                 tableContainer.innerHTML = m;
+                                               }
+                                         function submitVehicleData() {
+                                             // Send the array of button click data to the server
+                                             fetch('/admin/addVehicle/addSeat', {
+                                               method: 'POST',
+                                               headers: {
+                                                 'Content-Type': 'application/json',
+                                               },
+                                               body: JSON.stringify( VehicleClickData),
+                                             })
+                                               .then(response => response.json())
+                                               .then(data => console.log(data))
+                                               .catch(error => console.error(error));
+                                           }
+                                     </script>
+                                      <button style="margin-top:20px;" class="sc-button style fl-button pri-3" onclick="submitVehicleData()"  type="submit">Add Vehicle</button>
+                            
+                                    </form>
+                             </div>
+                            <div class="content-inner" style="display: none;">
+                              <form method="POST" action="/admin/addVenue">
+                               <div id="step1" class="form-step">
+                                 <h4 class="title-create-item">City</h4>
+                                  <input type="text" id="city" name="city" placeholder="City name" required>
+
+                                  <h4 class="title-create-item">Address</h4>
+                                  <input type="text" id="address" name="address" placeholder="Enter address" required>
+                                  <h4 class="title-create-item">Row Count:</h4>
+                                  <input type="number" id="rowCount" placeholder="Enter count" name="rowCount" min="1" required>
+                                  <br>
+                                  <h4 class="title-create-item">Column Count:</h4>
+                                  <input type="number" id="columnCount" placeholder="Enter column" name="columnCount" min="1" required>
+                                  <br>
+                                  <button style="margin-top:20px;" class="sc-button style fl-button pri-3" onclick ="nextStep()" type="submit">Countinue (Add)</button>
+                                  <!-- <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit" onclick ="nextStep()">Countinue</button> -->
+                                  <div id="generatedID"></div>
+                                
+                                </div>
+                              
+                                <div id="seattable" class="form-step" style="display: none;">
+                                  
+                                </form> 
+                                <form  action="/admin">
+                                    <div id="tableContainer"></div>
+                                    <label id="seats"> why </label>
+                                    <br>
+                                  </div>
+                                  <script>
+
+                                     var buttonClickData = [];
+                                    function handleClick(row,column) {
+                                      var button = document.getElementById(row + "," + column);
+                                      //button.innerHTML = row + "," +column;
+                                      button.innerHTML = "  ";
+                                     buttonClickData.push({ row, column });
+                                     
+                                      event.preventDefault();
+                                    }
+
+                                    function nextStep() {
+                                      
+                                      document.getElementById("seattable").style.display = 'block';
+                                      generateTable();
+                                     
+                                    }
+
+                                    function generateTable() {
+
+                                      var rowCount = parseInt(document.getElementById('rowCount').value);
+                                        var columnCount = parseInt(document.getElementById('columnCount').value);
+
+                                      var tableContainer = document.getElementById('tableContainer');
+                                      var m = '<table border="1"> ';
+                                        m += '<thead> <tr> <th>Select </thead> <tbody>';
+                                     // tableContainer.innerHTML = '<table border="1">';
+                                     //   tableContainer.innerHTML += ' <thead> <tr> <th>Select </thead>';
+                                      
+                                        for (var i = 1; i <= rowCount; i++) {
+                                          m += '<tr>';
+                                          for (var j = 1; j <= columnCount; j++) {
+                                            m +=  '<td> <form name="f1" action="#" > ' +' <button type="button" id="'+ i +',' + j + '" type="submit" name="'+ i +',' + j + '"  onclick="handleClick('+ i +','+ j + ')">' +  i + ',' + j + '</button> </form>'  + '</td>';
+                                          }
+                                          m += '</tr>';
+                                        }
+                                        m += '<tbody></table>';
+
+                                        tableContainer.innerHTML = m;
+                                    }
+
+                                    function prinmap() {
+                                      var denemeseat = "";
+                                      var why = document.getElementById('seats');
+                                      var mmm = [buttonClickData.map(entry => [entry.row, entry.column])];
+                                      for(var i = 0; i < mmm[0].length ; i++)
+                                      {
+                                        denemeseat += "[" + mmm[0][i] + "] ";
+                            
+                                      }
+
+                                      
+                                      why.innerHTML = denemeseat;
+                                     
+                                    }
+                                    //olmadı input gibi yapıp formdan yararlan
+                                    function submitData() {
+                                      // Send the array of button click data to the server
+                                      fetch('/admin/addVenue/addSeat', {
+                                        method: 'POST',
+                                        headers: {
+                                          'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify(buttonClickData),
+                                      })
+                                        .then(response => response.json())
+                                        .then(data => console.log(data))
+                                        .catch(error => console.error(error));
+                                    }
+                                      
+                                  </script>
+                                
+                                    <button style="margin-top:20px;" class="sc-button style fl-button pri-3" onclick = "prinmap()" type="button">Print</button>
+                                    <button style="margin-top:20px;" class="sc-button style fl-button pri-3" onclick = "submitData()" type="submit">Add Venue</button>
+                                  </form>
+                            </div>
+                            <div class="content-inner" style="display: none;">
+                              <form method="POST" action="/admin/addSeat">
+                                  <div class="row-form style-3">
+                                      <div class="inner-row-form">
+                                          <h4 class="title-create-item">Pricing</h4>
+                                          <input type="number" placeholder="250₺ etc." id="pricing" name="pricing" required>
+                                      </div>
+                                      <div class="inner-row-form">
+                                          <h4 class="title-create-item">Select Vehicle</h4>
+                                          <input type="number" placeholder="Plane, bus etc. (ID)" id="vehicleID" name="vehicleID" required>
+                                      </div>
+                                      <div class="inner-row-form">
+                                        <h4 class="title-create-item">Select Venue</h4>
+                                        <input type="number" placeholder="Venue (ID)" id="venueID" name="venueID" required>
+                                      </div>
+                                  </div>
+
+                                  <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Add Seat</button>
+                              </form>
+                            </div>
+                            <div class="content-inner" style="display: none;">
+                              <form method="POST" action="/admin/addTicket">
+                                  <h4 class="title-create-item">Status</h4>
+                                 <input type="text" id="status" name="status" placeholder="Write status" required>
+                                  <div class="row-form style-3">
+                                      <div class="inner-row-form">
+                                          <h4 class="title-create-item">Price</h4>
+                                          <input type="number" placeholder="250₺ etc." id="price" name="price" required>
+                                      </div>
+                                      <div class="inner-row-form">
+                                          <h4 class="title-create-item">Select Event</h4>
+                                          <input type="number" placeholder="Event (ID)" id="eventID" name="eventID" required>
+                                      </div>
+                                      <div class="inner-row-form">
+                                        <h4 class="title-create-item">Select Seat</h4>
+                                        <input type="number" placeholder="Seat (ID)" id="seatID" name="seatID" required>
+                                      </div>
+                                  </div>
+
+                                  <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Add Ticket</button>
+                              </form>
+                            </div>
+                            <div class="content-inner" style="display: none;">
+                              <form method="POST" action="/admin/addVehicleToRoute">
+                                  <div class="row-form style-3" style="justify-content:left; gap:40px;">
+                                    <div class="inner-row-form style-2">
+                                      <div class="seclect-box" style="padding-top: 0px;" >
+                                          <h4 class="title-create-item">Select Vehicle</h4>
+                                          <div id="item-create" class="dropdown" style="z-index: auto;">
+                                              <select id="vehicleID" name="vehicleID" 
+                                                  style="
+                                                      border: 1px solid rgba(138,138,160,0.3);
+                                                      outline: 0;
+                                                      -webkit-box-shadow: none;
+                                                      -moz-box-shadow: none;
+                                                      box-shadow: none;
+                                                      font-size: 18px;
+                                                      border-radius: 8px;
+                                                      padding: 13px 15px;
+                                                      width: 100%;
+                                                      background: transparent;
+                                                      color: #8A8AA0;">
+                                                <% 
+                                                  const uniqueVehicleIDs = Array.from(new Set(vehicles.map(vehicle => vehicle.vehicleID)));
+                                                  uniqueVehicleIDs.forEach(uniqueVehicleID => { 
+                                                    const vehicleInfo = vehicles.find(vehicle => vehicle.vehicleID === uniqueVehicleID);
+                                                    const combinedInfo = `${uniqueVehicleID} - ${vehicleInfo.vehicleType}`;
+                                                %>
+                                                  <option value="<%= uniqueVehicleID %>"><%= combinedInfo %></option>
+                                                <% }); %>   
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                                    <div class="inner-row-form style-2">
+                                        <div class="seclect-box" style="padding-top: 0px;" >
+                                            <h4 class="title-create-item">Select Route</h4>
+                                            <div id="item-create" class="dropdown" style="z-index: auto;">
+                                                <select id="routeID" name="routeID" 
+                                                    style="
+                                                        border: 1px solid rgba(138,138,160,0.3);
+                                                        outline: 0;
+                                                        -webkit-box-shadow: none;
+                                                        -moz-box-shadow: none;
+                                                        box-shadow: none;
+                                                        font-size: 18px;
+                                                        border-radius: 8px;
+                                                        padding: 13px 15px;
+                                                        width: 100%;
+                                                        background: transparent;
+                                                        color: #8A8AA0;">
+                                                  <% 
+                                                    // Tüm rotaların stationOrder ve place bilgilerini içeren bir nesne oluştur
+                                                    const routeInfo = {};
+                                                    routes.forEach(route => {
+                                                      const { routeID, stationOrder, place } = route;
+                                                      if (!routeInfo[routeID]) {
+                                                        routeInfo[routeID] = { minStationOrder: Infinity, maxStationOrder: -Infinity, places: [] };
+                                                      }
+                                                      const info = routeInfo[routeID];
+                                                      info.minStationOrder = Math.min(info.minStationOrder, stationOrder);
+                                                      info.maxStationOrder = Math.max(info.maxStationOrder, stationOrder);
+                                                      info.places.push(place);
+                                                    });
+                                                  
+                                                    // Her bir uniqueRoutesID3 için ilgili bilgileri yazdır
+                                                    const uniqueRoutesIDs2 = Array.from(new Set(routes.map(routesID => routesID.routeID)));
+                                                    uniqueRoutesIDs2.forEach(uniqueRoutesID3 => { 
+                                                      const info = routeInfo[uniqueRoutesID3];
+                                                      const firstPlace = info.places[0];
+                                                      const lastPlace = info.places[info.places.length - 1];
+                                                  %>
+                                                  <option value="<%= uniqueRoutesID3 %>"><%= `${uniqueRoutesID3} - ${firstPlace} - ${lastPlace}` %></option>
+                                                  <% }); %>              
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Add Vehicle to Route</button>
+                              </form>
+                              
+                      </div>
+                      <div class="content-inner" style="display: none;">
+                        <form method="POST" action="/admin/deleteRoute">
+                            <h4 class="title-create-item">Routename</h4>
+                            <input type="text" id="routename" name="routename" placeholder="Write route name" required>
+                            <button style="margin-top:20px;" class="sc-button style fl-button pri-3" type="submit">Delete Route</button>
+                        </form>
+                      </div>
+                        </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var params = new URLSearchParams(window.location.search);
+      var error = params.get('error');
+
+      if (error) {
+        var errorElement = document.getElementById('error');
+        errorElement.innerText = decodeURIComponent(error);
+        errorElement.style.display = 'block';
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var params = new URLSearchParams(window.location.search);
+      var error = params.get('succes');
+
+      if (error) {
+        var errorElement = document.getElementById('succes');
+        errorElement.innerText = decodeURIComponent(error);
+        errorElement.style.display = 'block';
+      }
+    });
+
+
+
+    
+
+  </script>
+
+
+<section class="tf-section wrap-accordion">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h2 class="tf-title-heading ct style-2 fs-30 mg-bt-10">
+                  All Data
+              </h2>
+              <h5 class="sub-title help-center mg-bt-32 ">
+                  Here you can see all the data of the tables.
+              </h5>
+          </div>
+          <div class="col-md-12">
+              <div class="flat-accordion2">
+                  <div class="flat-toggle2">
+                      <h6 class="toggle-title">All Routes</h6>
+                      <div class="toggle-content">
+                      <% routes.forEach(allRoutes => { %>
+                        <p style="padding: 10px; border-bottom: 1px solid gray;">Route ID - <%= allRoutes.routeID %> <br> Route Place - <%= allRoutes.place %> <br> Route Duration - <%= allRoutes.duration %> <br> Route Break Duration - <%= allRoutes.breakDuration %> <br> Route Station Order - <%= allRoutes.stationOrder %>
+                        </p>
+                      <% }) %>
+                      </div>
+                  </div>
+                  <div class="flat-toggle2">
+                      <h6 class="toggle-title">All Vehicle</h6>
+                      <div class="toggle-content">
+                      <% vehicles.forEach(allVehicles => { %>
+                        <p style="padding: 10px; border-bottom: 1px solid gray;">Vehicle Type - <%= allVehicles.vehicleType %> <br> Vehicle ID - <%= allVehicles.vehicleID %> <br> Route ID - <%= allVehicles.routeID %>
+                        </p>
+                      <% }) %>
+                      </div>
+                  </div>                              
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<style>
+  input {
+    color-scheme: dark;
+  }
+  .icon-preview {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .icon-container {
+    margin: 10px;
+    text-align: center;
+  }
+
+  .icon-container span {
+    font-size: 24px;
+    margin-top: 5px;
+  }
+</style>
+
+<div class="icon-preview">
+  <div class="icon-container">
+    <span class="icon-fl-tik-tok-2"></span>
+    <p>icon-fl-tik-tok-2</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-vt"></span>
+    <p>icon-fl-vt</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-tik-tok"></span>
+    <p>icon-fl-tik-tok</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-google-2"></span>
+    <p>icon-fl-google-2</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-down-2"></span>
+    <p>icon-fl-down-2</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-buy"></span>
+    <p>icon-fl-buy</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-credit-card"></span>
+    <p>icon-fl-credit-card</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-discount"></span>
+    <p>icon-fl-discount</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-heart-filled"></span>
+    <p>icon-fl-heart-filled</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-logout"></span>
+    <p>icon-fl-logout</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-search-filled"></span>
+    <p>icon-fl-search-filled</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-sort-filled"></span>
+    <p>icon-fl-sort-filled</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-star"></span>
+    <p>icon-fl-star</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-users-filled"></span>
+    <p>icon-fl-users-filled</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-check-1"></span>
+    <p>icon-fl-check-1</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-coolicon"></span>
+    <p>icon-fl-coolicon</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-coolicon11"></span>
+    <p>icon-coolicon11</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-facebook"></span>
+    <p>icon-fl-facebook</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-google"></span>
+    <p>icon-fl-google</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-google11"></span>
+    <p>icon-google11</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-tag"></span>
+    <p>icon-fl-tag</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-file-1"></span>
+    <p>icon-fl-file-1</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-icon-11"></span>
+    <p>icon-fl-icon-11</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-icon-22"></span>
+    <p>icon-fl-icon-22</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-dots"></span>
+    <p>icon-fl-dots</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-reload-1"></span>
+    <p>icon-fl-reload-1</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-twitch"></span>
+    <p>icon-twitch</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-mess"></span>
+    <p>icon-fl-mess</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-clock"></span>
+    <p>icon-fl-clock</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-down"></span>
+    <p>icon-fl-down</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-vector-left"></span>
+    <p>icon-fl-vector-left</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-vector-right"></span>
+    <p>icon-fl-vector-right</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-fire"></span>
+    <p>icon-fl-fire</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-bag"></span>
+    <p>icon-fl-bag</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-bookmark"></span>
+    <p>icon-fl-bookmark</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-category"></span>
+    <p>icon-fl-category</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-group"></span>
+    <p>icon-fl-group</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-heart"></span>
+    <p>icon-fl-heart</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-icon-1"></span>
+    <p>icon-fl-icon-1</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-icon-2"></span>
+    <p>icon-fl-icon-2</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-icon-3"></span>
+    <p>icon-fl-icon-3</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-icon-4"></span>
+    <p>icon-fl-icon-4</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-wallet"></span>
+    <p>icon-fl-wallet</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-icon"></span>
+    <p>icon-fl-icon</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-image"></span>
+    <p>icon-fl-image</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-note"></span>
+    <p>icon-fl-note</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-reload"></span>
+    <p>icon-fl-reload</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-rocket"></span>
+    <p>icon-fl-rocket</p>
+  </div>
+
+  <div class="icon-container">
+    <span class="icon-fl-send"></span>
+    <p>icon-fl-send</p>
+  </div>
+</div>
+<%- include ('./partials/footer') %>

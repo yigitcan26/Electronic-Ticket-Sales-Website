@@ -1,0 +1,84 @@
+<%- include ('./partials/header') %>
+
+<!-- title page -->
+<section class="flat-title-page inner">
+  <div class="overlay"></div>
+  <div class="themesflat-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-title-heading mg-bt-12">
+          <h1 class="heading text-center">Login</h1>
+        </div>
+        <div class="breadcrumbs style2">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li>Login</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tf-login tf-section">
+  <div class="themesflat-container">
+    <div class="row">
+      <div class="col-12">
+        
+
+        <div class="flat-form box-login-social">
+          <div class="box-title-login">
+            <h5>Login with social</h5>
+          </div>
+          <ul>
+            <li>
+              <a href="#" class="sc-button style-2 fl-button pri-3">
+                <i class="icon-fl-google-2"></i>
+                <span>Google</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="sc-button style-2 fl-button pri-3">
+                <i class="icon-fl-facebook"></i>
+                <span>Facebook</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="flat-form box-login-email">
+          <div class="box-title-login">
+            <h5>Or login with email</h5>
+          </div>
+
+          <div class="form-inner">
+            <form method="POST" action="/login">
+
+              <label for="username">Username:</label>
+              <input type="text" id="username" name="username" required>
+          
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+          
+              <label for="password">Password:</label>
+              <input type="password" id="password" name="password" required>
+          
+              <button type="submit">Login</button>
+            </form>
+          
+            <p style="margin-top:20px;">Don't have an account? <a href="/signup">Signup here</a>.</p>
+            <% if (typeof errorMessage !== 'undefined') { %>
+              <p style="color: red;"><%= errorMessage %></p>
+            <% } else if (typeof successMessage !== 'undefined') { %>
+              <p style="color: green;"><%= successMessage %></p>
+            <% } %>
+            
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<%- include ('./partials/footer') %>
